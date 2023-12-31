@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiApp1", "MauiApp1\MauiApp1.csproj", "{B8F0A659-AC81-405A-AAB1-E25DF4FB4867}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizAPI", "QuizAPI\QuizAPI.csproj", "{576705B1-E705-47CB-A760-3C59C4C1C40F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{B8F0A659-AC81-405A-AAB1-E25DF4FB4867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F0A659-AC81-405A-AAB1-E25DF4FB4867}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8F0A659-AC81-405A-AAB1-E25DF4FB4867}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{576705B1-E705-47CB-A760-3C59C4C1C40F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{576705B1-E705-47CB-A760-3C59C4C1C40F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{576705B1-E705-47CB-A760-3C59C4C1C40F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{576705B1-E705-47CB-A760-3C59C4C1C40F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

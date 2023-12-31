@@ -11,6 +11,8 @@ using System.Collections;
 using CommunityToolkit.Mvvm.Input;
 using MauiApp1.Views;
 using System.Globalization;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace MauiApp1.ViewModels
 {
@@ -22,107 +24,7 @@ namespace MauiApp1.ViewModels
         
         string correct_answer { get; set; } = "B";
 
-        static QuizModel[] quizData =
-        {
-            new QuizModel
-            {
-                question = "Who is goddess of the hunt?",
-                answer = "B",
-                optionsList = new OptionsList[]
-                {
-                    new OptionsList
-                    {
-                        id = 11,
-                        option = "Hera",
-                        optionId = "A"
-                    },
-                    new OptionsList
-                    {
-                        id = 12,
-                        option = "Artemis",
-                        optionId = "B"
-                    },
-                    new OptionsList
-                    {
-                        id = 13,
-                        option = "Athena",
-                        optionId = "C"
-                    },
-                    new OptionsList
-                    {
-                        id = 14,
-                        option = "Aphrodite",
-                        optionId = "D"
-                    }
-                }
-            },
-
-            new QuizModel
-            {
-                question = "What is the human form of bovine spongiform encephalopathy commonly known as?",
-                answer = "C",
-                optionsList = new OptionsList[]
-                {
-                    new OptionsList
-                    {
-                        id = 21,
-                        option = "Swine flu",
-                        optionId = "A"
-                    },
-                    new OptionsList
-                    {
-                        id = 22,
-                        option = "Norovirus",
-                        optionId = "B"
-                    },
-                    new OptionsList
-                    {
-                        id = 23,
-                        option = "Mad cow disease",
-                        optionId = "C"
-                    },
-                    new OptionsList
-                    {
-                        id = 24,
-                        option = "Bubonic plague",
-                        optionId = "D"
-                    }
-                }
-            },
-
-            new QuizModel
-            {
-                question = "What is the closest star to earth (apart from the sun)?",
-                answer = "B",
-                optionsList = new OptionsList[]
-                {
-                    new OptionsList
-                    {
-                        id = 31,
-                        option = "Alpha Centauri",
-                        optionId = "A"
-                    },
-                    new OptionsList
-                    {
-                        id = 32,
-                        option = "Proxima Centauri",
-                        optionId = "B"
-                    },
-                    new OptionsList
-                    {
-                        id = 33,
-                        option = "Barnard's star",
-                        optionId = "C"
-                    },
-                    new OptionsList
-                    {
-                        id = 34,
-                        option = "Alpha Centauri A",
-                        optionId = "D"
-                    }
-                }
-            }
-        };
+        public static QuizModel[] quizData { get; set; }
 
         [ObservableProperty]
         string currentQuestion;
@@ -187,17 +89,21 @@ namespace MauiApp1.ViewModels
 
         public QuizVM()
         {
-            CurrentQuestion = $"Question {current_index + 1}/{quizData.Length}";
-            Quiz = new Quiz
-            {
-                currentQuestion = current_index + 1,
-                quizModel = quizData[current_index]
-            };
-            correct_total = 0;
         }
 
         public async Task ClearData()
         {
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://localhost:7054/Quiz/");
+
+            using HttpResponseMessage response = await httpClient.GetAsync("");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var contentStream = await response.Content.ReadAsStringAsync();
+                quizData = JsonConvert.DeserializeObject<QuizModel[]>(contentStream);
+            }
+
             current_index = 0;
             Progress = 0;
             CurrentQuestion = $"Question {current_index + 1}/{quizData.Length}";
