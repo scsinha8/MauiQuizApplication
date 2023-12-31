@@ -153,7 +153,7 @@ namespace MauiApp1.ViewModels
             {
                 string perc = ((double)correct_total / (double)quizData.Length).ToString("P", CultureInfo.InvariantCulture);
                 await App.Current.MainPage.DisplayAlert("Result", $"Your result is: {perc}", "Close");
-                App.Current.Quit();
+                await Shell.Current.GoToAsync("//MainPage");
                 return;
                 
             }
@@ -187,6 +187,19 @@ namespace MauiApp1.ViewModels
 
         public QuizVM()
         {
+            CurrentQuestion = $"Question {current_index + 1}/{quizData.Length}";
+            Quiz = new Quiz
+            {
+                currentQuestion = current_index + 1,
+                quizModel = quizData[current_index]
+            };
+            correct_total = 0;
+        }
+
+        public async Task ClearData()
+        {
+            current_index = 0;
+            Progress = 0;
             CurrentQuestion = $"Question {current_index + 1}/{quizData.Length}";
             Quiz = new Quiz
             {

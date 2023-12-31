@@ -9,4 +9,10 @@ public partial class QuizPage : ContentPage
 		InitializeComponent();
 		BindingContext = new QuizVM();
 	}
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await (BindingContext as QuizVM).ClearData();
+    }
 }
