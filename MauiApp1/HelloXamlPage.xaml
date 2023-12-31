@@ -1,0 +1,17 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.HelloXamlPage"
+             Title="Hello XAML Page">
+    <VerticalStackLayout>
+        <Label Text="Quiz question here"
+           HorizontalTextAlignment="Center"
+           FontSize="30"
+           FontAttributes="Bold"
+           TextColor="Blue" />
+
+        <ListView x:Name="Test">
+            
+        </ListView>
+    </VerticalStackLayout>
+    
+</ContentPage>

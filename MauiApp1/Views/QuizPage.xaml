@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MauiApp1.Views.QuizPage"
+             Title="Quiz">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:SelectedItemEventArgsConverter x:Key="SelectedItemEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <ProgressBar Progress="{Binding Progress}"
+                     Margin="10"></ProgressBar>
+        <Label 
+            Text="{Binding CurrentQuestion}"
+            Padding="5">
+        </Label>
+        <Label 
+            Text="{Binding Quiz.quizModel.question}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            FontSize="Title"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center"
+            Padding="10"/>
+
+        <ListView ItemsSource="{Binding Quiz.quizModel.optionsList}" x:Name="list">
+            <ListView.Behaviors>
+                <toolkit:EventToCommandBehavior
+                EventName="ItemSelected"
+                Command="{Binding ItemClickedCommand}"
+                EventArgsConverter="{StaticResource SelectedItemEventArgsConverter}"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Grid.Column="1"
+                           Text="{Binding option}"
+                           VerticalTextAlignment="Center"
+                           Padding="10"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Next" 
+                CommandParameter="{Binding}"
+                Command="{Binding Source={x:Reference list}, Path=BindingContext.NextButtonCommand}"
+                Margin="25"
+                HorizontalOptions="CenterAndExpand"></Button>
+    </VerticalStackLayout>
+</ContentPage>
